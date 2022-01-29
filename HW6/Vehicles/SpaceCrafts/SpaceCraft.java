@@ -12,6 +12,10 @@ public class SpaceCraft extends Aircraft {
         super(name, maxSpeed, speedIncrease, maxPassengersCount);
     }
 
+    /**
+     * Someone can die due to overload)
+     * If every passengers dies, spacecraft has to land again
+     */
     public void goToSpace(){
         dropOffDead();
         if (currentPassengersCount == 0) {
@@ -19,17 +23,28 @@ public class SpaceCraft extends Aircraft {
         }
     }
 
+    /**
+     * reduces passengers count if someone died
+     */
     private void dropOffDead(){
         // someone can die due to overload
         int deadPassengers = getDeadPassengersCount(this.currentPassengersCount);
         this.dropOffPassengers(deadPassengers); // a little incorrect, but it's fine
     }
 
+    /**
+     * someone can die by landing on planet too
+     */
     public void goToPlanet(){
         dropOffDead();
     }
 
-    private static int getDeadPassengersCount(int currentPassengersCount){
+    /**
+     * calculation of survivors
+     * @param currentPassengersCount
+     * @return count of dead passengers
+     */
+    public static int getDeadPassengersCount(int currentPassengersCount){
         int deadPassengersCount = 0;
         for (int i = 0; i < currentPassengersCount; i++){
             int chanceToSurvive = rnd.nextInt(101);
@@ -37,6 +52,9 @@ public class SpaceCraft extends Aircraft {
                 deadPassengersCount++;
             }
         }
+//        if (deadPassengersCount > 0){
+//            System.out.println("Умерло: " + deadPassengersCount);
+//        }
         return deadPassengersCount;
     }
 }

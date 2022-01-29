@@ -1,15 +1,13 @@
 package HW6.Vehicles;
 
-import java.util.SortedMap;
-
 public class Aircraft {
-    protected int maxSpeed;
-    protected int currentSpeed;
-    protected int speedIncrease;
-    protected int maxPassengersCount;
-    protected int currentPassengersCount;
-    protected boolean isLanded;
-    protected String name;
+    public int maxSpeed;
+    public int currentSpeed;
+    public int speedIncrease;
+    public int maxPassengersCount;
+    public int currentPassengersCount;
+    public boolean isLanded;
+    public String name;
 
     /**
      * @param name               - name of an Aircraft
@@ -52,6 +50,9 @@ public class Aircraft {
      * @return currentSpeed
      */
     public int slowDown() {
+        if (currentSpeed > maxSpeed) {
+            currentSpeed = maxSpeed;
+        }
         if (currentSpeed - speedIncrease <= 0 & !isLanded) {
             System.out.println(
                     String.format(
@@ -73,7 +74,7 @@ public class Aircraft {
      * @return currentSpeed
      */
     public int rise() {
-        this.isLanded = false;
+        isLanded = false;
         return increaseSpeed();
     }
 
@@ -91,6 +92,12 @@ public class Aircraft {
             );
             return currentSpeed;
         }
+        if(currentSpeed == maxSpeed){
+            return accelerate();
+        }
+        if (currentSpeed > maxSpeed){
+            currentSpeed = maxSpeed / 2;
+        }
         currentSpeed += speedIncrease;
         if (currentSpeed > maxSpeed) {
             System.out.println(
@@ -102,6 +109,14 @@ public class Aircraft {
             currentSpeed = maxSpeed;
         }
         return currentSpeed;
+    }
+
+    /**
+     * Acceleration for 1 move.
+     * Has to be overrided.
+     */
+    protected int accelerate(){
+        return 0;
     }
 
     /**
