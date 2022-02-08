@@ -2,12 +2,15 @@ package HW16.Minesweeper.core.Cells;
 
 public class Cell {
     String defaultValue;
-    String currentValue;
-    String flag;
+    public String currentValue;
     String value;
-    boolean isFlagged;
+
+    String flag;
     String getFlag;
-    boolean isOpened;
+    public boolean isFlagged;
+
+    public boolean isOpened;
+
     public int x;
     public int y;
 
@@ -43,7 +46,7 @@ public class Cell {
     public String toPrint(boolean isGameOver){
         if(isGameOver){
             if(this.isFlagged){
-                return getFlag;
+                return getFlag + "|";
             } else if(this instanceof BombCell){
                 this.click();
             }
